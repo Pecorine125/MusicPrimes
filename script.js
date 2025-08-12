@@ -1,66 +1,83 @@
-const player = document.getElementById("player");
-const themesContainer = document.getElementById("themes");
-const nowPlayingSection = document.getElementById("now-playing");
-const coverNow = document.getElementById("cover-now");
-const themeNameElem = document.getElementById("theme-name");
-const musicTitleElem = document.getElementById("music-title");
+const gallery = document.getElementById("gallery");
+const playerSection = document.getElementById("player-section");
+const largeCover = document.getElementById("large-cover");
+const nowPlayingTitle = document.getElementById("now-playing-title");
 
-let currentPlaylist = [];
-let currentIndex = 0;
-let currentTheme = null;
+const backMenuBtn = document.getElementById("back-menu-btn");
+const playBtn = document.getElementById("play-btn");
+const pauseBtn = document.getElementById("pause-btn");
+const closeAppBtn = document.getElementById("close-app-btn");
 
-function createThemeCards() {
-  for (const [key, theme] of Object.entries(musicFolders)) {
+const audioPlayer = document.getElementById("audio-player");
+
+let currentMusic = null;
+let isPaused = false;
+
+function loadGallery() {
+  gallery.innerHTML = "";
+  musicList.forEach((music, index) => {
     const card = document.createElement("div");
-    card.classList.add("theme-card");
-    card.dataset.key = key;
+    card.classList.add("card");
 
     const img = document.createElement("img");
-    img.src = theme.cover;
-    img.alt = theme.displayName;
+    img.src = music.cover;
+    img.alt = music.title;
 
     const title = document.createElement("h3");
-    title.textContent = theme.displayName;
+    title.textContent = music.title;
 
     card.appendChild(img);
     card.appendChild(title);
 
     card.addEventListener("click", () => {
-      startPlaylist(key);
+      openPlayer(index);
     });
 
-    themesContainer.appendChild(card);
-  }
+    gallery.appendChild(card);
+  });
+
+  gallery.parentElement.classList.remove("hidden");
+  playerSection.classList.add("hidden");
 }
 
-function startPlaylist(themeKey) {
-  currentTheme = musicFolders[themeKey];
-  currentPlaylist = currentTheme.files;
-  currentIndex = 0;
-  themeNameElem.textContent = currentTheme.displayName;
-  nowPlayingSection.classList.remove("hidden");
-  playCurrentMusic();
+function openPlayer(index) {
+  currentMusic = musicList[index];
+  largeCover.src = currentMusic.cover;
+  nowPlayingTitle.textContent = currentMusic.title;
+  audioPlayer.src = currentMusic.file;
+  audioPlayer.pause();
+  isPaused = true;
+
+  gallery.parentElement.classList.add("hidden");
+  playerSection.classList.remove("hidden");
 }
 
-function playCurrentMusic() {
-  if (!currentPlaylist.length) return;
-  const music = currentPlaylist[currentIndex];
-  player.src = currentTheme.path + music.file;
-  player.play();
-  coverNow.src = music.cover;
-  musicTitleElem.textContent = music.title;
-}
-
-// Avança para a próxima música quando acabar
-player.addEventListener("ended", () => {
-  currentIndex++;
-  if (currentIndex >= currentPlaylist.length) {
-    currentIndex = 0; // Volta para a primeira música (loop)
-  }
-  playCurrentMusic();
+backMenuBtn.addEventListener("click", () => {
+  audioPlayer.pause();
+  loadGallery();
 });
 
-// Inicializa as cartas de tema ao carregar a página
+playBtn.addEventListener("click", () => {
+  if (!currentMusic) return;
+  if (isPaused) {
+    audioPlayer.play();
+    isPaused = false;
+  }
+});
+
+pauseBtn.addEventListener("click", () => {
+  if (!currentMusic) return;
+  if (!isPaused) {
+    audioPlayer.pause();
+    isPaused = true;
+  }
+});
+
+closeAppBtn.addEventListener("click", () => {
+  window.close(); // Fecha a aba/janela do navegador (funciona se a aba foi aberta via script)
+});
+
+// Inicializa galeria
 window.addEventListener("DOMContentLoaded", () => {
-  createThemeCards();
+  loadGallery();
 });
