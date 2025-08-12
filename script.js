@@ -74,10 +74,10 @@ pauseBtn.addEventListener("click", () => {
 });
 
 closeAppBtn.addEventListener("click", () => {
-  window.close(); // Fecha a aba/janela do navegador (funciona se a aba foi aberta via script)
+  window.close();
 });
 
-// Inicializa galeria
+// Inicializa galeria ao carregar a página
 window.addEventListener("DOMContentLoaded", () => {
   loadGallery();
 });
