@@ -1,7 +1,9 @@
-// Lista de músicas com título e capa (pode repetir capa)
+// Dados dos temas e músicas
 const musicFolders = {
-    "anime-br": {
-        path: "public/music-anime-br/",
+  "anime-br": {
+    displayName: "Anime BR",
+    cover: "/covers/anime-br.jpg",
+    path: "/music-anime-br/",
         files: [
             { file: "", title: "", cover: "" },
             { file: "", title: "", cover: "" }, // mesma capa
