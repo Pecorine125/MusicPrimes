@@ -1,41 +1,6 @@
 // asd
 const musicList = [
     {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
-        "title": "",
-        "file": "",
-        "cover": ""
-    },
-    {
         "title": "Musica1",
         "file": "music-tempo-inovar/Musica1.mp3",
         "cover": "covers/Capa1.jpg"
