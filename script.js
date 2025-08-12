@@ -1,20 +1,33 @@
 const player = document.getElementById("player");
 
-// Criar lista de músicas
-function createMusicList(id, folder) {
-    const ul = document.getElementById(id);
+function createMusicGrid(id, folder) {
+    const container = document.getElementById(id);
     folder.files.forEach(music => {
-        const li = document.createElement("li");
-        li.textContent = music.title;
-        li.onclick = () => {
+        const card = document.createElement("div");
+        card.classList.add("music-card");
+
+        const img = document.createElement("img");
+        img.src = music.cover;
+        img.alt = music.title;
+
+        const title = document.createElement("h3");
+        title.textContent = music.title;
+
+        const btn = document.createElement("button");
+        btn.textContent = "▶ Play";
+        btn.classList.add("play-btn");
+        btn.onclick = () => {
             player.src = folder.path + music.file;
             player.play();
         };
-        ul.appendChild(li);
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(btn);
+        container.appendChild(card);
     });
 }
 
-// Monta todas as listas usando o `musicFolders` do arquivo separado
 for (const [id, folder] of Object.entries(musicFolders)) {
-    createMusicList(id, folder);
+    createMusicGrid(id, folder);
 }
