@@ -25,12 +25,12 @@ const musicList = [
     cover: "" 
   },
   { 
-    title: "Inovar Mix 1", 
+    title: "", 
     file: "", 
     cover: "" 
   },
   { 
-    title: "Inovar Mix 2", 
+    title: "", 
     file: "", 
     cover: "" 
   }
